@@ -11,9 +11,8 @@ Rails.application.routes.draw do
   get    "/auth/failure", to: "sessions#failure"
 
   # Dev-only quick-login helpers (choose who you want to be)
-  if Rails.env.development?
+  if Rails.env.development? || Rails.env.test?
     get "/dev_login/requester", to: "dev_login#requester"
     get "/dev_login/agent",     to: "dev_login#agent"
   end
-
 end

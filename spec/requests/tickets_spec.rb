@@ -46,12 +46,12 @@ RSpec.describe "Tickets", type: :request do
         agent2 = create(:user, :agent, name: 'Agent 2')
 
         post tickets_path, params: { ticket: { subject: 'Test', description: 'Test desc', priority: 'normal' } }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         # Ticket creation failed, so no ticket was created
         expect(Ticket.count).to eq(0)
 
         post tickets_path, params: { ticket: { subject: 'Test2', description: 'Test desc2', priority: 'normal' } }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         # Ticket creation failed, so no ticket was created
         expect(Ticket.count).to eq(0)
       end
@@ -65,7 +65,7 @@ RSpec.describe "Tickets", type: :request do
 
       it 'does not assign ticket automatically' do
         post tickets_path, params: { ticket: { subject: 'Test', description: 'Test desc', priority: 'normal' } }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         # Ticket creation failed, so no ticket was created
         expect(Ticket.count).to eq(0)
       end
