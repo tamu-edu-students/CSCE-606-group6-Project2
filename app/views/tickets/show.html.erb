@@ -1,14 +1,36 @@
 <h1><%= @ticket.subject %></h1>
 
-<p><strong>Status:</strong> <%= @ticket.status %></p>
-<p><strong>Priority:</strong> <%= @ticket.priority %></p>
-<p><strong>Requester:</strong> <%= @ticket.requester.display_name %></p>
-<p><strong>Assignee:</strong> <%= @ticket.assignee&.display_name || 'Unassigned' %></p>
-<p><strong>Category:</strong> <%= @ticket.category %></p>
-<p><strong>Description:</strong></p>
+<h2>Details</h2>
+<ul>
+  <li><strong>Status:</strong> <%= @ticket.status %></li>
+  <li><strong>Priority:</strong> <%= @ticket.priority %></li>
+  <li><strong>Requester:</strong> <%= @ticket.requester.display_name %></li>
+  <li><strong>Assignee:</strong> <%= @ticket.assignee&.display_name || 'Unassigned' %></li>
+  <% if @ticket.category.present? %>
+    <li><strong>Category:</strong> <%= @ticket.category %></li>
+  <% end %>
+</ul>
+
+<hr>
+
+<h2>Description</h2>
 <p><%= @ticket.description %></p>
 
+<hr>
 
+<h2>History</h2>
+<ul>
+  <li><strong>Created at:</strong> <%= @ticket.created_at&.strftime('%Y-%m-%d %H:%M') %></li>
+  <li><strong>Last updated:</strong> <%= @ticket.updated_at&.strftime('%Y-%m-%d %H:%M') %></li>
+  <% if @ticket.closed_at.present? %>
+    <li><strong>Closed at:</strong> <%= @ticket.closed_at.strftime('%Y-%m-%d %H:%M') %></li>
+  <% end %>
+</ul>
+
+<hr>
+
+<h2>Comments</h2>
+<p>No comments available.</p>
 
 <%= link_to 'Edit', edit_ticket_path(@ticket) %>
 <%= link_to 'Back', tickets_path %>
