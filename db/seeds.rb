@@ -42,7 +42,7 @@ requester = User.find_or_initialize_by(
 
 requester.assign_attributes(
   email:     "dummy.requester@example.com",
-  name:      "Dummy Requester",
+  name:      "Dummy Requester 1",
   image_url: "https://example.com/requester.png",
   role:      :user
 )
@@ -58,7 +58,7 @@ requester2 = User.find_or_initialize_by(
 
 requester2.assign_attributes(
   email:     "dummy.requester2@example.com",
-  name:      "Dummy Requester Two",
+  name:      "Dummy Requester 2",
   image_url: "https://example.com/requester2.png",
   role:      :user
 )
@@ -75,7 +75,7 @@ support_agent = User.find_or_initialize_by(
 
 support_agent.assign_attributes(
   email:     "support.agent@example.com",
-  name:      "Support Agent",
+  name:      "Support Agent 1",
   image_url: "https://example.com/support_agent.png",
   role:      :staff
 )
@@ -91,7 +91,7 @@ support_agent2 = User.find_or_initialize_by(
 
 support_agent2.assign_attributes(
   email:     "support.agent2@example.com",
-  name:      "Support Agent Two",
+  name:      "Support Agent 2",
   image_url: "https://example.com/support_agent2.png",
   role:      :staff
 )
