@@ -13,7 +13,7 @@ Feature: User login with Google
   Scenario: First-time sign in creates a user and logs in
     Given the Google mock returns uid "123", email "first@example.com", name "First User"
     When I click "Login with Google"
-    Then I should see "Signed in as First User"
+    Then I should see "Signed in as user : 123"
     And I should see "Hi, First User of role user"
     And the app should have exactly 1 user with email "first@example.com"
 

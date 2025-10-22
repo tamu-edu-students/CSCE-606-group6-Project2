@@ -4,7 +4,7 @@ Feature: Authentication via OmniAuth (development mock)
 
   @dev @auth
   Scenario: Log in as the dummy requester
-    When I visit "/dev_login/requester"
+    When I visit "/dev_login/user1"
     Then I should be logged in
     And I should see "Signed in" on the page
     When I visit "/tickets"
@@ -12,7 +12,7 @@ Feature: Authentication via OmniAuth (development mock)
 
   @dev @auth
   Scenario: Log in as the support agent
-    When I visit "/dev_login/agent"
+    When I visit "/dev_login/agent1"
     Then I should be logged in
     And I should see "Signed in" on the page
     When I visit "/tickets"

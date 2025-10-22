@@ -37,7 +37,7 @@ puts "Seeding dummy OAuth users and tickets…"
 # === Dummy OAuth User (Requester) ===
 requester = User.find_or_initialize_by(
   provider: "google_oauth2",
-  uid:      "dummy.requester.001" # stable for idempotency
+  uid:      "user1" # stable for idempotency
 )
 
 requester.assign_attributes(
@@ -50,11 +50,27 @@ requester.assign_attributes(
 requester.save!
 puts "Seeded requester: #{requester.email} (role: #{requester.role})"
 
+# === Second Dummy OAuth User (Requester 2) ===
+requester2 = User.find_or_initialize_by(
+  provider: "google_oauth2",
+  uid:      "user2"
+)
+
+requester2.assign_attributes(
+  email:     "dummy.requester2@example.com",
+  name:      "Dummy Requester Two",
+  image_url: "https://example.com/requester2.png",
+  role:      :user
+)
+
+requester2.save!
+puts "Seeded requester: #{requester2.email} (role: #{requester2.role})"
+
 
 # === Dummy OAuth Support Agent (no password) ===
 support_agent = User.find_or_initialize_by(
   provider: "google_oauth2",
-  uid:      "support.agent.001" # stable for idempotency
+  uid:      "agent1" # stable for idempotency
 )
 
 support_agent.assign_attributes(
@@ -66,6 +82,22 @@ support_agent.assign_attributes(
 
 support_agent.save!
 puts "Seeded support agent: #{support_agent.email} (role: #{support_agent.role})"
+
+# === Second OAuth Support Agent ===
+support_agent2 = User.find_or_initialize_by(
+  provider: "google_oauth2",
+  uid:      "agent2"
+)
+
+support_agent2.assign_attributes(
+  email:     "support.agent2@example.com",
+  name:      "Support Agent Two",
+  image_url: "https://example.com/support_agent2.png",
+  role:      :staff
+)
+
+support_agent2.save!
+puts "Seeded support agent: #{support_agent2.email} (role: #{support_agent2.role})"
 
 
 ticket_data = [
@@ -108,6 +140,16 @@ ticket_data = [
     assignee_id: support_agent.id,
     category: "Billing",
     closed_at: 1.day.ago
+  },
+  {
+    subject: "Resolved: UI glitch on dashboard",
+    description: "Dashboard charts overlapped on Safari; fix deployed.",
+    status: :resolved,
+    priority: :normal,
+    requester_id: requester.id,
+    assignee_id: support_agent.id,
+    category: "UI",
+    closed_at: nil
   }
 ]
 

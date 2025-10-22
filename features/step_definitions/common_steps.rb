@@ -51,16 +51,16 @@ Then('every ticket listed should have status {string}') do |status|
 end
 
 Given('I am logged in as the requester') do
-  visit "/dev_login/requester"
+  visit "/dev_login/user1"
 end
 
 Given('I am logged in as the support agent') do
-  visit "/dev_login/agent"
+  visit "/dev_login/agent1"
 end
 
 Given('a ticket exists with subject {string} and status {string}') do |subject, status|
-  requester = User.find_by!(uid: "dummy.requester.001")
-  assignee  = User.find_by!(uid: "support.agent.001")
+  requester = User.find_by!(uid: "user1")
+  assignee  = User.find_by!(uid: "agent1")
   Ticket.find_or_create_by!(subject: subject) do |t|
     t.description = "Seeded by Cucumber"
     t.status      = status

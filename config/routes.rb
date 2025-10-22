@@ -12,7 +12,6 @@ Rails.application.routes.draw do
 
   # Dev-only quick-login helpers (choose who you want to be)
   if Rails.env.development? || Rails.env.test?
-    get "/dev_login/requester", to: "dev_login#requester"
-    get "/dev_login/agent",     to: "dev_login#agent"
+    get "/dev_login/:uid",       to: "dev_login#by_uid", constraints: { uid: /[A-Za-z0-9_\-]+/ }, format: false
   end
 end

@@ -1,30 +1,23 @@
 class DevLoginController < ApplicationController
   # No auth; dev-only routes are environment-gated
 
-  def requester
-    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
-      provider: "google_oauth2",
-      uid:      "dummy.requester.001",
-      info: {
-        email: "dummy.requester@example.com",
-        name:  "Dummy Requester",
-        image: "https://example.com/requester.png"
-      },
-      credentials: { token: "req-token", refresh_token: "req-refresh", expires_at: 1.hour.from_now.to_i }
-    )
-    redirect_to "/auth/google_oauth2"
-  end
+  def by_uid
+    uid = params[:uid].to_s
+    user = User.find_by(provider: "google_oauth2", uid: uid)
+    unless user
+      redirect_to root_path, alert: "No user found for UID #{uid}. Run seeds or check the UID."
+      return
+    end
 
-  def agent
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
       provider: "google_oauth2",
-      uid:      "support.agent.001",
+      uid:      user.uid,
       info: {
-        email: "support.agent@example.com",
-        name:  "Support Agent",
-        image: "https://example.com/support_agent.png"
+        email: user.email,
+        name:  user.name,
+        image: user.image_url
       },
-      credentials: { token: "agent-token", refresh_token: "agent-refresh", expires_at: 1.hour.from_now.to_i }
+      credentials: { token: "dev-token-#{uid}", refresh_token: "dev-refresh-#{uid}", expires_at: 1.hour.from_now.to_i }
     )
     redirect_to "/auth/google_oauth2"
   end
