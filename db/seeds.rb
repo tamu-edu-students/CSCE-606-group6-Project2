@@ -26,3 +26,45 @@ user.assign_attributes(
 
 user.save!
 puts "Seeded user: #{user.email} (role: #{user.role})"
+
+
+# === Roles ===
+# Ensure your User model has something like:
+# enum role: { user: 0, staff: 1, support: 2, admin: 3 }
+
+puts "Seeding dummy OAuth users and tickets…"
+
+# === Dummy OAuth User (Requester) ===
+requester = User.find_or_initialize_by(
+  provider: "google_oauth2",
+  uid:      "dummy.requester.001" # stable for idempotency
+)
+
+requester.assign_attributes(
+  email:     "dummy.requester@example.com",
+  name:      "Dummy Requester",
+  image_url: "https://example.com/requester.png",
+  role:      :user
+)
+
+requester.save!
+puts "Seeded requester: #{requester.email} (role: #{requester.role})"
+
+
+# === Dummy OAuth Support Agent (no password) ===
+support_agent = User.find_or_initialize_by(
+  provider: "google_oauth2",
+  uid:      "support.agent.001" # stable for idempotency
+)
+
+support_agent.assign_attributes(
+  email:     "support.agent@example.com",
+  name:      "Support Agent",
+  image_url: "https://example.com/support_agent.png",
+  role:      :staff
+)
+
+support_agent.save!
+puts "Seeded support agent: #{support_agent.email} (role: #{support_agent.role})"
+
+
