@@ -44,7 +44,7 @@ Then('every ticket listed should have status {string}') do |status|
   # Ensure at least one status marker appears and none of the others
   within("[data-testid='tickets-list']") do
     expect(page).to have_css("[data-testid='ticket-status']", text: /Status:\s*#{Regexp.escape(status)}/i)
-    (Ticket.statuses.keys - [status]).each do |other|
+    (Ticket.statuses.keys - [ status ]).each do |other|
       expect(page).not_to have_css("[data-testid='ticket-status']", text: /Status:\s*#{Regexp.escape(other)}/i)
     end
   end

@@ -1,6 +1,6 @@
 require "omniauth"
 OmniAuth.config.test_mode = true
-OmniAuth.config.silence_get_warning = true 
+OmniAuth.config.silence_get_warning = true
 # provide a default mock; DevLoginController overwrites per role
 OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
   provider: "google_oauth2",
