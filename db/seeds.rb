@@ -68,3 +68,54 @@ support_agent.save!
 puts "Seeded support agent: #{support_agent.email} (role: #{support_agent.role})"
 
 
+ticket_data = [
+  {
+    subject: "App crash on ticket submission",
+    description: "Every time I try to submit a ticket, the app crashes with a 500 error.",
+    status: :open,
+    priority: :high,
+    requester_id: requester.id,
+    assignee_id: support_agent.id,
+    category: "Bug",
+    closed_at: nil
+  },
+  {
+    subject: "Cannot change account password",
+    description: "The password reset link redirects to an expired page.",
+    status: :pending, # was :in_progress → fix to :pending
+    priority: :normal,
+    requester_id: requester.id,
+    assignee_id: support_agent.id,
+    category: "Authentication",
+    closed_at: nil
+  },
+  {
+    subject: "Feature request: Email notifications for updates",
+    description: "Would be great if I could receive an email when the ticket status changes.",
+    status: :open,
+    priority: :low,
+    requester_id: requester.id,
+    assignee_id: nil,
+    category: "Feature Request",
+    closed_at: nil
+  },
+  {
+    subject: "Billing discrepancy for premium plan",
+    description: "Charged twice for the same month on my credit card statement.",
+    status: :closed,
+    priority: :high,
+    requester_id: requester.id,
+    assignee_id: support_agent.id,
+    category: "Billing",
+    closed_at: 1.day.ago
+  }
+]
+
+ticket_data.each do |attrs|
+  Ticket.find_or_create_by!(subject: attrs[:subject]) do |t|
+    t.assign_attributes(attrs)
+  end
+end
+
+
+puts "Seeded #{Ticket.count} total tickets (including existing ones)."
