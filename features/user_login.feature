@@ -30,4 +30,3 @@ Feature: User login with Google
     When I press "Log out"
     Then I should see "Signed out."
     And I should see "Login with Google"
-

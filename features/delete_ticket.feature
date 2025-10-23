@@ -13,4 +13,3 @@ Feature: Delete Ticket
         When I press "Destroy"
         Then I should see "Ticket was successfully destroyed"
         And I should not see "Test Ticket"
-

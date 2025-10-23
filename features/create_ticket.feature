@@ -11,4 +11,3 @@ Feature: Create Ticket
     Then I should see "Ticket was successfully created"
     When I go to the tickets list page
     Then I should see "Login issue" in the ticket list
-

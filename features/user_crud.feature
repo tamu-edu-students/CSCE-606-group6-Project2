@@ -57,4 +57,3 @@ Feature: Users CRUD
     Then I should see "User deleted."
     And I should not see "deleteme@example.com"
 
-
